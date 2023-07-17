@@ -11,7 +11,6 @@ function Payment() {
   useEffect(() => {
     fetch("/config").then(async (r) => {
       const { publishableKey } = await r.json();
-      console.log(publishableKey);
       setStripePromise(loadStripe(publishableKey));
     });
   }, []);
@@ -22,14 +21,13 @@ function Payment() {
       body: JSON.stringify({}),
     }).then(async (result) => {
       var { clientSecret } = await result.json();
-      console.log(clientSecret);
       setClientSecret(clientSecret);
     });
   }, []);
 
   return (
     <>
-      <h1>React Stripe and the Payment Element</h1>
+      <h1>Kampong Software Subscription</h1>
       {clientSecret && stripePromise && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <CheckoutForm />
