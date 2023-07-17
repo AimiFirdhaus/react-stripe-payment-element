@@ -20,19 +20,29 @@ export default function CheckoutForm() {
 
     setIsProcessing(true);
 
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
         return_url: `${window.location.origin}/completion`,
       },
+
+      redirect: "if_required",
     });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
+    if (error) {
       setMessage(error.message);
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      setMessage("Payment status: " + paymentIntent.status + " 🎉");
     } else {
-      setMessage("An unexpected error occured.");
+      setMessage("Unexpected state");
     }
+
+    // if (error.type === "card_error" || error.type === "validation_error") {
+    //   setMessage(error.message);
+    // } else {
+    //   setMessage("An unexpected error occured.");
+    // }
 
     setIsProcessing(false);
   };
