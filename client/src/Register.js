@@ -44,7 +44,7 @@ const Register = (props) => {
   };
 
   if (customer) {
-    return <Navigate to="/payment" replace={true} />;
+    return <Navigate to="/prices" replace={true} />;
   }
 
   return (

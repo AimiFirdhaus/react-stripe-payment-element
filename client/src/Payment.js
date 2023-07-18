@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 
 function Payment() {
+  const { state } = useLocation();
   const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret] = useState(state.clientSecret);
 
   useEffect(() => {
     fetch("/config").then(async (r) => {
@@ -15,15 +17,15 @@ function Payment() {
     });
   }, []);
 
-  useEffect(() => {
-    fetch("/create-payment-intent", {
-      method: "POST",
-      body: JSON.stringify({}),
-    }).then(async (result) => {
-      var { clientSecret } = await result.json();
-      setClientSecret(clientSecret);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/create-payment-intent", {
+  //     method: "POST",
+  //     body: JSON.stringify({}),
+  //   }).then(async (result) => {
+  //     var { clientSecret } = await result.json();
+  //     setClientSecret(clientSecret);
+  //   });
+  // }, []);
 
   return (
     <>
