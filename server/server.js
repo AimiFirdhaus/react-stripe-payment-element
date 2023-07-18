@@ -9,6 +9,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 });
 
 app.use(express.static(process.env.STATIC_DIR));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   const path = resolve(process.env.STATIC_DIR + "/index.html");
@@ -19,6 +20,19 @@ app.get("/config", (req, res) => {
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
+});
+
+app.post("/create-customer", async (req, res) => {
+  // Create a new customer object
+  const customer = await stripe.customers.create({
+    email: req.body.email,
+  });
+
+  // Save the customer.id in your database alongside your user.
+  // We're simulating authentication with a cookie.
+  res.cookie("customer", customer.id, { maxAge: 900000, httpOnly: true });
+
+  res.send({ customer: customer });
 });
 
 app.post("/create-payment-intent", async (req, res) => {

@@ -1,6 +1,7 @@
 import "./App.css";
 import Payment from "./Payment";
 import Completion from "./Completion";
+import Register from "./Register";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -9,7 +10,8 @@ function App() {
     <main>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Payment />} />
+          <Route exact path="/" element={<Register />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/completion" element={<Completion />} />
         </Routes>
       </BrowserRouter>
