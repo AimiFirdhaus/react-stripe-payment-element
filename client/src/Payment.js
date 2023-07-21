@@ -17,6 +17,11 @@ function Payment() {
     });
   }, []);
 
+  // const appearance = {
+  //   theme: "night",
+  //   labels: "floating",
+  // };
+
   // useEffect(() => {
   //   fetch("/create-payment-intent", {
   //     method: "POST",
