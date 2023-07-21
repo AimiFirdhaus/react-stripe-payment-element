@@ -60,6 +60,7 @@ export default function CheckoutForm() {
           message === "Payment status: succeeded 🎉"
         }
         id="submit"
+        onClick={() => setMessage(null)}
       >
         <span id="button-text">
           {isProcessing ? "Processing ... " : "Subscribe"}
