@@ -62,7 +62,7 @@ export default function CheckoutForm() {
         id="submit"
       >
         <span id="button-text">
-          {isProcessing ? "Processing ... " : "Pay now"}
+          {isProcessing ? "Processing ... " : "Subscribe"}
         </span>
       </button>
       {/* Show any error or success messages */}
